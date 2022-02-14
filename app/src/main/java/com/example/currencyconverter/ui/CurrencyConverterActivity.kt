@@ -23,7 +23,6 @@ class CurrencyConverterActivity : AppCompatActivity() {
     private val currencyConversionAdapter: CurrencyConversionAdapter by lazy {
         CurrencyConversionAdapter()
     }
-    private val conversionList = mutableListOf<ConversionModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,7 +70,7 @@ class CurrencyConverterActivity : AppCompatActivity() {
 
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
-                adapterView: AdapterView<*>, view: View,
+                adapterView: AdapterView<*>, view: View?,
                 position: Int, id: Long
             ) {
                 convertAmount(currencyRateAdapter.getItem(position))
@@ -91,7 +90,8 @@ class CurrencyConverterActivity : AppCompatActivity() {
     private fun convertAmount(currencyRateModel: CurrencyRateModel) {
         when {
             currencyRateModel.currencyRate == null -> {
-                Toast.makeText(this, getString(R.string.rate_not_available), Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.rate_not_available), Toast.LENGTH_SHORT)
+                    .show()
             }
             etAmount.length() > 0 -> {
                 hideKeyboard(currentFocus)
@@ -105,13 +105,14 @@ class CurrencyConverterActivity : AppCompatActivity() {
     }
 
     private fun updateConversion(conversionModel: ConversionModel) {
-        val existingConversion =
-            conversionList.find { it.currencyName == conversionModel.currencyName }
-        if (existingConversion != null) {
-            existingConversion.conversion = conversionModel.conversion
-        } else {
-            conversionList.add(conversionModel)
+        with(viewModel.conversionList) {
+            val existingConversion = find { it.currencyName == conversionModel.currencyName }
+            if (existingConversion != null) {
+                existingConversion.conversion = conversionModel.conversion
+            } else {
+                add(conversionModel)
+            }
+            currencyConversionAdapter.setData(this)
         }
-        currencyConversionAdapter.setData(conversionList)
     }
 }

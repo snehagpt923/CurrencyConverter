@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.currencyconverter.domain.model.ConversionModel
 import com.example.currencyconverter.domain.model.CurrencyRateModel
 import com.example.currencyconverter.repository.MainRepository
 import com.example.currencyconverter.utils.DataState
@@ -16,8 +17,9 @@ import javax.inject.Inject
 @HiltViewModel
 class CurrencyConverterViewModel @Inject constructor(
     private val mainRepository: MainRepository
-) :
-    ViewModel() {
+) : ViewModel() {
+
+    val conversionList = mutableListOf<ConversionModel>()
 
     private val _converterRatesLiveData: MutableLiveData<DataState<List<CurrencyRateModel>>> =
         MutableLiveData()
