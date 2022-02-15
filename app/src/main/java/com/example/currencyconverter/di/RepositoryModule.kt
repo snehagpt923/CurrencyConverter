@@ -4,6 +4,7 @@ import com.example.currencyconverter.domain.data.cache.CacheDataSource
 import com.example.currencyconverter.domain.data.network.NetworkDataSource
 import com.example.currencyconverter.repository.MainRepository
 import com.example.currencyconverter.utils.ResourcesProvider
+import com.example.currencyconverter.utils.SharedPrefsManager
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -19,9 +20,15 @@ object RepositoryModule {
     fun provideRepository(
         cacheDataSource: CacheDataSource,
         networkDataSource: NetworkDataSource,
-        resourcesProvider: ResourcesProvider
+        resourcesProvider: ResourcesProvider,
+        sharedPrefsManager: SharedPrefsManager
     ): MainRepository {
-        return MainRepository(cacheDataSource, networkDataSource, resourcesProvider)
+        return MainRepository(
+            cacheDataSource,
+            networkDataSource,
+            resourcesProvider,
+            sharedPrefsManager
+        )
     }
 }
 

@@ -2,6 +2,8 @@ package com.example.currencyconverter.ui
 
 import android.os.Bundle
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.widget.AdapterView
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -50,23 +52,24 @@ class CurrencyConverterActivity : AppCompatActivity() {
 
     private fun displayError(message: String?) {
         if (message != null) {
-            tvError.visibility = View.VISIBLE
+            tvError.visibility = VISIBLE
             tvError.text = message
         } else {
             tvError.text = ""
-            tvError.visibility = View.GONE
+            tvError.visibility = GONE
         }
     }
 
     private fun displayProgressBar(isDisplayed: Boolean) {
-        progress_bar.visibility = if (isDisplayed) View.VISIBLE else View.GONE
+        progress_bar.visibility = if (isDisplayed) VISIBLE else GONE
     }
 
     private fun initViews(rates: List<CurrencyRateModel>) {
         val currencyRateAdapter = CurrencyRateAdapter(this, rates)
+        etAmount.visibility = VISIBLE
 
         spinner.adapter = currencyRateAdapter
-        spinner.visibility = View.VISIBLE
+        spinner.visibility = VISIBLE
 
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(

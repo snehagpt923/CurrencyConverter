@@ -9,6 +9,7 @@ object Utility {
     const val BASE_URL = "http://api.currencylayer.com/"
     const val ACCESS_KEY = "8cf7ec8698b46e4cdd0ec0b3e29b5587"
     const val NUM_COLUMN = 3
+    const val API_CALL_DURATION = 30 * 60 * 1000
 
     fun hideKeyboard(view: View?) {
         view?.let {
