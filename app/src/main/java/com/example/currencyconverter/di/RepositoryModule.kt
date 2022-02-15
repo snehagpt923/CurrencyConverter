@@ -21,7 +21,7 @@ object RepositoryModule {
         cacheDataSource: CacheDataSource,
         networkDataSource: NetworkDataSource,
         resourcesProvider: ResourcesProvider,
-        sharedPrefsManager: SharedPrefsManager
+        sharedPrefsManager: SharedPrefsManager?
     ): MainRepository {
         return MainRepository(
             cacheDataSource,

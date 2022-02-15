@@ -21,6 +21,6 @@ object UtilsModule {
 
     @Singleton
     @Provides
-    fun provideSharedPrefsManager(): SharedPrefsManager =
+    fun provideSharedPrefsManager(): SharedPrefsManager? =
         SharedPrefsManager.instance
 }

@@ -17,12 +17,14 @@ class SharedPrefsManager private constructor(context: Context) {
 
     companion object {
         @get:Synchronized
-        lateinit var instance: SharedPrefsManager
+        var instance: SharedPrefsManager? = null
             private set
 
         @Synchronized
         fun initializeInstance(context: Context) {
-            instance = SharedPrefsManager(context)
+            if (instance == null) {
+                instance = SharedPrefsManager(context)
+            }
         }
 
         const val API_CALL_TIME = "API_CALL_TIME"
