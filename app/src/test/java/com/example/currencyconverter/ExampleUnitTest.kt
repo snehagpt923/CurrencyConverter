@@ -1,8 +1,8 @@
 package com.example.currencyconverter
 
 import com.example.currencyconverter.domain.data.cache.CacheDataSource
-import com.example.currencyconverter.domain.data.network.NetworkDataSource
 import com.example.currencyconverter.repository.MainRepository
+import com.example.currencyconverter.util.MockedNetworkDataSourceImpl
 import com.example.currencyconverter.utils.ResourcesProvider
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.runBlocking
@@ -22,8 +22,7 @@ class ExampleUnitTest {
     @Mock
     lateinit var mockedCacheDataSource: CacheDataSource
 
-    @Mock
-    lateinit var mockedNetworkDataSource: NetworkDataSource
+    private var mockedNetworkDataSource = MockedNetworkDataSourceImpl()
 
     @Mock
     lateinit var resourcesProvider: ResourcesProvider
@@ -40,6 +39,13 @@ class ExampleUnitTest {
                 resourcesProvider,
                 null
             )
+    }
+
+    @Test
+    fun currencyRateList_isNotEmpty() {
+        runBlocking {
+            assertEquals(mockedNetworkDataSource.getCurrencyRates().isNotEmpty(), true)
+        }
     }
 
     @Test
